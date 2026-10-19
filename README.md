@@ -1,6 +1,6 @@
 # Deck — Finance Command Center
 
-Deck is a local finance research workbench for financial modeling, market inspection, strategy experiments, portfolio review, and an evidence-linked journal. The proposed GitHub repository name is **`deck-finance-command-center`**. This package is a source-only release candidate; publication requires a separate final approval.
+Deck is a local finance research workbench for financial modeling, market inspection, strategy experiments, portfolio review, and an evidence-linked journal. This is the public [deck-finance-command-center](https://github.com/Y-Jakhar/deck-finance-command-center) repository, published from the approved source-only candidate on 19 October 2026.
 
 ![Home screen from an empty standalone session](docs/release-screenshots/standalone-home.png)
 
@@ -27,10 +27,10 @@ The verified environment is Python 3.13, Node.js 24/npm, and Windows PowerShell.
 
 ## Tests
 
-From a fresh environment, install `requirements-lock.txt`, run `python -m pip check`, `python -m pytest -q tests`, and `python -m ruff check` on the listed application/test modules. In `frontend`, run `npm ci`, `npm test`, `npm run lint`, `npm run build`, and `npm audit --audit-level=low`. The [release approval report](docs/FINAL_GITHUB_RELEASE_APPROVAL.md) records the exact candidate results and remaining limits.
+From a fresh environment, install `requirements-lock.txt`, run `python -m pip check`, `python -m pytest -q tests`, and `python -m ruff check` on the listed application/test modules. In `frontend`, run `npm ci`, `npm test`, `npm run lint`, `npm run build`, and `npm audit --audit-level=low`. The [publication clearance report](docs/FINAL_GITHUB_RELEASE_APPROVAL.md) records the release checks and remaining limits.
 
 ## License and attribution
 
-Copyright (c) 2026 Yash Jakhar. Deck source owned by Yash Jakhar is licensed under [MIT](LICENSE). Third-party dependencies, fonts, and any separately licensed material retain their own terms; see [third-party notices](THIRD_PARTY_NOTICES.md). The owner has authorized MIT distribution of the Go-Terminal and DealLens code they own that appears in this release candidate. No optional sibling repository is bundled.
+Copyright (c) 2026 Yash Jakhar. Deck source owned by Yash Jakhar is licensed under [MIT](LICENSE). Third-party dependencies, fonts, and any separately licensed material retain their own terms; see [third-party notices](THIRD_PARTY_NOTICES.md). The owner authorized MIT distribution of the Go-Terminal and DealLens code they own that is included here. No optional sibling repository is bundled.
 
 No investment result, market feed, backtest, or AI response is guaranteed. Do not put credentials, real portfolio records, licensed datasets, or protected research in a public repository.

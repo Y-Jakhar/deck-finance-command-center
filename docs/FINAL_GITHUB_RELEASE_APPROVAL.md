@@ -1,6 +1,6 @@
-# Final GitHub release approval — Deck / Finance Command Center
+# GitHub publication clearance — Deck / Finance Command Center
 
-**Prepared 19 October 2026. Proposed repository:** `deck-finance-command-center`. **Recommendation: GO for owner review of this exact 117-file candidate; NO-GO to publish until the owner gives separate final publication approval.** This report is a clearance record, not a publication action. The source-only candidate contains no Git metadata or installed/build artifacts.
+**Prepared and published 19 October 2026.** After final owner approval, the exact 117-file source-only candidate was published to the public [Y-Jakhar/deck-finance-command-center](https://github.com/Y-Jakhar/deck-finance-command-center) repository as root commit `97836d2bce0e686df20fa41fb337009eedd172e1` on `main`. GitHub verified the repository as public with an MIT license. The published tree contains no installed/build artifacts or Git metadata.
 
 ## Owner authorization and scope
 
@@ -69,11 +69,11 @@ One backend warning remains: Starlette's test client reports that its `httpx` co
 
 ## Standalone package and privacy verification
 
-The new candidate was assembled from the 108-file standalone allowlist, then reviewed additions and changes were applied. Production databases, protected research, data directories, `.venv`, `node_modules`, `frontend/dist`, previous prototype assets, and optional sibling repositories are absent. A verifier compares every listed SHA-256 against `PUBLIC_FILE_ALLOWLIST.json`, rejects extra/missing files and prohibited formats/paths, and scans included text for key, private-key, email, and local-machine-path patterns. It does not prove absence of every kind of secret; the two screenshots were reviewed visually. The independent QA copy, not this candidate, holds installations and synthetic runtime artifacts.
+The published source was assembled from the 108-file standalone allowlist, then reviewed additions and changes were applied. Production databases, protected research, data directories, `.venv`, `node_modules`, `frontend/dist`, previous prototype assets, and optional sibling repositories are absent. Before publication, the verifier matched all 116 SHA-256 manifest entries, found exactly 117 files, and reported zero privacy findings. The remote Git tree and all 117 blob IDs were compared with the approved root commit; the root commit has no parent, so no private history was uploaded. The verifier does not prove absence of every kind of secret; the two screenshots were reviewed visually. The independent QA copy holds installations and synthetic runtime artifacts.
 
 ## Exact publication file inventory
 
-`PUBLIC_FILE_ALLOWLIST.json` contains the SHA-256 for every path below except itself. The verifier script is included as a source file. This inventory is the proposed publication set; any change requires regenerating the manifest and repeating checks.
+`PUBLIC_FILE_ALLOWLIST.json` contains the SHA-256 for every path below except itself. The verifier script is included as a source file. This is the published 117-path inventory. This documentation follow-up refreshes the README and report checksums in the manifest; the original approved bytes remain preserved in the initial commit.
 
 - `.env.example`
 - `.gitignore`
@@ -195,4 +195,4 @@ The new candidate was assembled from the 108-file standalone allowlist, then rev
 
 ## Final decision
 
-**GO for final owner approval of the exact allowlisted source candidate. Publication remains NO-GO until that explicit approval is received.** The name `deck-finance-command-center` is only a proposal. No repository was created, Git initialized, change committed, code pushed, application deployed, or release published. The owner should approve the exact contents and MIT/third-party notices before any publication action; a later binary distribution or newly discovered third-party contribution needs separate clearance.
+**Publication complete.** The owner gave final approval; the requested public repository and `main` branch were created and the approved root commit was pushed. This documentation-only follow-up records that outcome while preserving the initial commit. No GitHub release, tag, or deployment was created. A later binary distribution or newly discovered third-party contribution needs separate clearance.
