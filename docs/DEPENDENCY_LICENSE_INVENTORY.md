@@ -11,7 +11,7 @@ The following metadata covers all exact Python versions in the final 38-package 
 | `annotated-doc` | 0.0.5 | MIT |
 | `annotated-types` | 0.8.0 | MIT |
 | `anyio` | 4.15.1 | MIT |
-| `certifi` | 2026.7.22 | MPL-2.0 |
+| `certifi` | 2026.10.23 | MPL-2.0 |
 | `charset-normalizer` | 3.5.2 | MIT |
 | `click` | 8.5.0 | BSD-3-Clause |
 | `colorama` | 0.4.6 | not stated |
@@ -26,7 +26,7 @@ The following metadata covers all exact Python versions in the final 38-package 
 | `openpyxl` | 3.1.5 | MIT |
 | `packaging` | 26.3 | Apache-2.0 OR BSD-2-Clause |
 | `pandas` | 2.3.3 | BSD 3-Clause License Copyright (c) 2008-2011, AQR Capital Management, LLC, Lambda Foundry, Inc. a... (inspect license file) |
-| `pillow` | 12.3.0 | MIT-CMU |
+| `pillow` | 13.0.0 | MIT-CMU |
 | `pluggy` | 1.6.0 | MIT |
 | `pydantic` | 2.11.7 | MIT |
 | `pydantic_core` | 2.33.2 | MIT |
@@ -35,7 +35,7 @@ The following metadata covers all exact Python versions in the final 38-package 
 | `python-dateutil` | 2.9.0.post0 | Dual License |
 | `python-dotenv` | 1.2.4 | BSD-3-Clause |
 | `python-multipart` | 0.0.32 | Apache-2.0 |
-| `pypdf` | 6.21.0 | BSD-3-Clause |
+| `pypdf` | 6.21.2 | BSD-3-Clause |
 | `pytz` | 2026.5 | MIT |
 | `reportlab` | 4.4.3 | BSD license (see license.txt for details), Copyright (c) 2000-2025, ReportLab Inc. |
 | `ruff` | 0.17.0 | MIT |

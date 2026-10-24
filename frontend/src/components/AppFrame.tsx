@@ -1,23 +1,19 @@
-import type { MouseEvent, ReactNode } from 'react'
-import { workspaces, workspaceFor } from '../workspaces'
-import '../pages/command-center.css'
+import { useState, type MouseEvent, type ReactNode } from 'react'
+import { workspaceFor } from '../workspaces'
 import { UniversalSearch } from './UniversalSearch'
 import { WorkspaceRail } from './WorkspaceRail'
 
-type IconName = 'today' | 'universe' | 'watchlist' | 'news' | 'events'
+const destinations = [
+  { path: '/', title: 'Overview', icon: '▦' },
+  { path: '/market', title: 'Market Intelligence', icon: '⌁' },
+  { path: '/banking', title: 'Investment Banking', icon: '▥' },
+  { path: '/quant', title: 'Quant & Trading', icon: '⌁' },
+  { path: '/portfolio', title: 'Portfolio & Risk', icon: '◇' },
+  { path: '/journal', title: 'Research Journal', icon: '▤' },
+  { path: '/settings', title: 'Settings', icon: '⚙' },
+]
 
-function NavIcon({ name }: { name: IconName }) {
-  const paths: Record<IconName, ReactNode> = {
-    today: <><rect x="4" y="5" width="16" height="15" /><path d="M8 3v4m8-4v4M4 9h16" /></>,
-    universe: <path d="M4 20V11m5 9V4m6 16v-7m5 7V7" />,
-    watchlist: <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" />,
-    news: <><rect x="5" y="4" width="14" height="16" /><path d="M8 8h8M8 12h8M8 16h5" /></>,
-    events: <><rect x="5" y="5" width="14" height="15" /><path d="M8 3v4m8-4v4M8 11h3m2 0h3m-8 4h3m2 0h3" /></>,
-  }
-  return <svg className="nav-icon" viewBox="0 0 24 24" aria-hidden="true">{paths[name]}</svg>
-}
-
-const navigate = (event: MouseEvent<HTMLAnchorElement>, path: string, onNavigate: (path: string) => void) => {
+function follow(event: MouseEvent<HTMLAnchorElement>, path: string, onNavigate: (path: string) => void) {
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
   event.preventDefault()
   onNavigate(path)
@@ -26,29 +22,32 @@ const navigate = (event: MouseEvent<HTMLAnchorElement>, path: string, onNavigate
 export function AppFrame({ children, onNavigate }: { children: ReactNode; onNavigate: (path: string) => void }) {
   const path = window.location.pathname
   const workspace = workspaceFor(path)
-  const links = [['/', 'Home'], ...workspaces.map(w => [w.path,w.name]), ['/journal','Research journal'], ['/settings','Settings']]
-  return (
-    <div className="app-shell">
-      <a className="skip-link" href="#main-content">Skip to terminal content</a>
-      <a className="wordmark" href="/" onClick={(event) => navigate(event, '/', onNavigate)} aria-label="Finance Command Center home">
-        <span className="wordmark__mark" aria-hidden="true">R<span>D</span></span>
-        <span>ResearchDesk</span>
-      </a>
-      <header className="topbar">
+  const active = path === '/' ? '/' : workspace?.path || (path.startsWith('/research/journal') ? '/journal' : path.startsWith('/research/settings') ? '/settings' : path)
+  const title = destinations.find(item => item.path === active)?.title || 'Research workspace'
+  const [collapsed, setCollapsed] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  return <div className={`app-shell deck-light${collapsed ? ' deck-light--collapsed' : ''}${menuOpen ? ' deck-light--menu-open' : ''}`}>
+    <a className="skip-link" href="#main-content">Skip to content</a>
+    <aside className="deck-sidebar" aria-label="Primary navigation">
+      <a className="deck-brand" href="/" onClick={event => follow(event, '/', onNavigate)} aria-label="FCC overview"><span className="deck-brand__mark">F</span><span className="deck-brand__name">FCC<small>Finance Command Center</small></span></a>
+      <div className="deck-sidebar__label">Workspace</div>
+      <nav className="deck-nav" aria-label="Primary navigation">{destinations.map(item => <a key={item.path} href={item.path} title={item.title} aria-current={active === item.path ? 'page' : undefined} onClick={event => { follow(event, item.path, onNavigate); setMenuOpen(false) }}><span className="deck-nav__icon" aria-hidden="true">{item.icon}</span><span className="deck-nav__text">{item.title}</span></a>)}</nav>
+      <div className="deck-sidebar__foot"><strong>Local research node</strong><span>Source-linked workspace</span></div>
+    </aside>
+    <div className="deck-main">
+      <header className="deck-topbar">
+        <button className="deck-menu-button" type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>☰</button>
+        <button className="deck-collapse-button" type="button" aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} aria-expanded={!collapsed} onClick={() => setCollapsed(!collapsed)}>☰</button>
+        <div className="deck-breadcrumb"><span>Workspace</span><span aria-hidden="true">/</span><strong>{title}</strong></div>
+        <select className="deck-workspace-switcher" aria-label="Workspace switcher" value={active === '/' ? '' : active} onChange={event => onNavigate(event.target.value || '/')}><option value="">Overview</option>{destinations.slice(1).map(item => <option key={item.path} value={item.path}>{item.title}</option>)}</select>
         <UniversalSearch onNavigate={onNavigate} />
-        <div className="provider-status" aria-label="Terminal mode">
-          <span>Local research node</span><strong>Source-linked · No trade execution</strong><i className="market-dot" aria-hidden="true" />
-        </div>
+        <div className="deck-source-status"><span aria-hidden="true" />Local research</div>
       </header>
-      <nav className="primary-rail" aria-label="Primary navigation">
-        {links.map(([url,title]) => <a key={url} aria-label={title} title={title} aria-current={path === url || workspace?.path === url ? 'page' : undefined} className={path === url || workspace?.path === url ? 'active' : ''} href={url} onClick={event=>navigate(event,url,onNavigate)}><NavIcon name={url==='/'?'today':url==='/journal'?'news':url==='/settings'?'events':url==='/portfolio'?'watchlist':'universe'}/><span>{title}</span></a>)}
-        <div className="primary-rail__status"><span className="market-dot" aria-hidden="true" /><strong>Local API</strong><small>Research mode</small></div>
-      </nav>
-      <WorkspaceRail onNavigate={onNavigate} />
-      <div className="page-stage"><nav className="command-breadcrumb" aria-label="Breadcrumb"><a href="/" onClick={e=>navigate(e,'/',onNavigate)}>Home</a><span aria-hidden="true">/</span><span>{workspace?.name || (path.includes('journal') ? 'Research journal' : path.includes('settings') ? 'Shared settings' : 'Command Center')}</span><select aria-label="Workspace switcher" value={workspace?.path || ''} onChange={e=>onNavigate(e.target.value || '/')}><option value="">Command Center</option>{workspaces.map(w=><option key={w.key} value={w.path}>{w.name}</option>)}</select></nav>{workspace?.key==='market'&&<nav className="workspace-tools" aria-label="Market workspace"><a href="/today" onClick={e=>navigate(e,'/today',onNavigate)}>Today</a><a href="/market" onClick={e=>navigate(e,'/market',onNavigate)}>Universe & watchlists</a><a href="/market/history" onClick={e=>navigate(e,'/market/history',onNavigate)}>Historical snapshots</a><a href="/market/company" onClick={e=>navigate(e,'/market/company',onNavigate)}>Company research</a></nav>}{children}</div>
-      <nav className="mobile-nav" aria-label="Mobile navigation">
-        {[['/','Home'],['/market','Markets'],['/banking','Banking'],['/quant','Quant'],['/portfolio','Risk']].map(([url,title])=><a key={url} className={path===url||workspace?.path===url?'active':''} href={url} onClick={e=>navigate(e,url,onNavigate)}><NavIcon name="universe"/><span>{title}</span></a>)}
-      </nav>
+      <nav className="deck-legacy-links" aria-label="Additional research views"><a href="/today" onClick={event => follow(event, '/today', onNavigate)}>Today</a><a href="/dashboard" onClick={event => follow(event, '/dashboard', onNavigate)}>Dashboard</a><a href="/market/history" onClick={event => follow(event, '/market/history', onNavigate)}>Historical prices</a><a href="/market/company" onClick={event => follow(event, '/market/company', onNavigate)}>Company research</a></nav>
+      {active === '/market' && <WorkspaceRail onNavigate={onNavigate} />}
+      <div className="page-stage">{children}</div>
     </div>
-  )
+    {menuOpen && <button className="deck-menu-scrim" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
+    <nav className="mobile-nav" aria-label="Mobile navigation">{destinations.slice(0, 5).map(item => <a key={item.path} href={item.path} className={active === item.path ? 'active' : ''} onClick={event => follow(event, item.path, onNavigate)}><span aria-hidden="true">{item.icon}</span><span>{item.title.split(' ')[0]}</span></a>)}</nav>
+  </div>
 }

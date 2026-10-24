@@ -9,6 +9,7 @@ import '@fontsource/ibm-plex-mono/latin-500.css'
 import '@fontsource/ibm-plex-mono/latin-600.css'
 import { App } from './App'
 import './styles.css'
+import './light-theme.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

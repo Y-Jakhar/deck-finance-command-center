@@ -27,14 +27,14 @@ describe('Command Center',()=>{
   })
   it('opens the four research workspaces and returns home with the switcher',async()=>{
     const user=userEvent.setup();render(<App />)
-    for(const [path,label,heading] of [['/market',/OBSERVE Market Intelligence/,'Market integration unavailable'],['/banking',/VALUE Investment Banking Lab/,'Valuation cases'],['/quant',/TEST Quant & Trading Lab/,'Strategy Lab'],['/portfolio',/MEASURE Portfolio & Risk Lab/,'Holdings, history & risk']] as const){
-      await user.click(screen.getByRole('link',{name:label}))
+    for(const [path,label,heading] of [['/market','Market Intelligence','Market integration unavailable'],['/banking','Investment Banking','Valuation cases'],['/quant','Quant & Trading','Strategy Lab'],['/portfolio','Portfolio & Risk','Holdings, history & risk']] as const){
+      await user.click(screen.getByRole('navigation',{name:'Primary navigation'}).querySelector(`a[href="${path}"]`)!)
       expect(window.location.pathname).toBe(path)
       expect(await screen.findByRole('heading',{name:heading})).toBeInTheDocument()
       await user.selectOptions(screen.getByLabelText('Workspace switcher'),'')
-      expect(screen.getByRole('heading',{name:'Finance Command Center'})).toBeInTheDocument()
+      expect(screen.getByRole('heading',{name:'FCC'})).toBeInTheDocument()
     }
-    await user.click(screen.getByRole('button',{name:'Open research journal'}))
+    await user.click(screen.getByRole('button',{name:'Open journal'}))
     expect(screen.getByRole('heading',{name:'Research journal'})).toBeInTheDocument()
   })
 
