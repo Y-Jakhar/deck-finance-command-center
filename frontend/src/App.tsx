@@ -34,7 +34,7 @@ export function App() {
     }
   }, [path])
   useEffect(() => { const pop = () => setPath(window.location.pathname); window.addEventListener('popstate', pop); return () => window.removeEventListener('popstate', pop) }, [])
-  useEffect(() => { document.title = 'ResearchDesk · ' + (path === '/' ? 'Finance Command Center' : path.split('/').at(-1) || 'Research') }, [path])
+  useEffect(() => { document.title = 'Deck · ' + (path === '/' ? 'Finance Command Center' : path.split('/').at(-1) || 'Research') }, [path])
   const instrumentMatch = path.match(/^\/instrument\/(.+)$/)
   const researchMatch = path.match(/^\/research\/(company|valuation|strategy|journal|settings)$/)
   const section = researchMatch?.[1] || ({ '/market/company':'company', '/market/history':'prices', '/banking':'valuation', '/quant':'strategy', '/journal':'journal', '/settings':'settings' } as Record<string,string>)[path]
