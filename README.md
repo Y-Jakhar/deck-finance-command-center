@@ -1,38 +1,64 @@
 # FCC — Finance Command Center
 
-FCC (formerly Deck) is a local finance research workbench for financial modeling, market inspection, strategy experiments, portfolio review, and an evidence-linked journal. The repository URL and original project history remain [deck-finance-command-center](https://github.com/Y-Jakhar/deck-finance-command-center).
+**Turn financial research into a record you can revisit.** FCC brings statements, valuation scenarios, strategy experiments, portfolio context, and research notes into one local workspace. It keeps sources, assumptions, and revisions close to the decision they support.
 
-![FCC light-themed Overview in an empty standalone session](docs/release-screenshots/standalone-home.png)
+Built with React, TypeScript, and FastAPI, FCC runs on your computer with a private SQLite database. The light-themed interface has seven connected workspaces. It starts empty: screenshots below show the standalone app without live market data or illustrative financial results.
 
-![FCC light-themed Investment Banking import and review workflow](docs/release-screenshots/standalone-banking.png)
+## See the workspace
 
-The light interface has seven workspaces: Overview, Market Intelligence, Investment Banking, Quant & Trading, Portfolio & Risk, Research Journal, and Settings. The Overview lists saved local records from the application API; it does not display illustrative financial figures as live data. Navigation and layout adapt to desktop and tablet widths, and motion respects reduced-motion preferences.
+**Overview** — move between research areas and open saved local valuations, experiments, and journal entries.
 
-The React/TypeScript frontend is served by a loopback FastAPI backend. It starts with a new empty SQLite database without sibling repositories. Go-Terminal, DealLens, and StrategyLab are optional local integrations; their provider-backed features show an unavailable state when the corresponding engine is absent. No sibling source, downloaded market data, private research, or production database is packaged.
+![FCC light-themed Overview showing an empty local research workspace](docs/release-screenshots/standalone-home.png)
 
-## Workspaces
+**Investment Banking** — import statements, inspect evidence, and build source-linked valuation cases with explicit scenarios.
 
-| Workspace | Available in standalone mode | Optional boundary |
+![FCC light-themed Investment Banking workspace showing financial import and evidence review](docs/release-screenshots/standalone-banking.png)
+
+## Follow the research trail
+
+- **Bring in financial statements.** Preview CSV, XLSX, or text-readable PDF files, then review mappings, units, periods, and source references before saving a snapshot.
+- **Model with visible assumptions.** Work through independent three-statement and versioned FCFF cases, including bear, base, and bull scenarios. Keep evidence review separate from approval.
+- **Retain your reasoning.** Link valuations and other research to journal entries that preserve revisions and exports.
+- **See what is available.** Market feeds, legacy DealLens valuation, StrategyLab simulations, and AI providers identify when their optional engines or credentials are absent. FCC does not substitute demonstration figures for live results.
+
+| Workspace | Standalone experience | Optional integration |
 | --- | --- | --- |
-| Home and Settings | Navigation, storage and provider status | AI providers require backend credentials. |
-| Markets | Empty watchlist and clear unavailable states | Go-Terminal supplies instruments, quotes, and history. |
-| Investment Banking | Statement import, independent modeling previews, versioned DCF, and journal links | DealLens supplies legacy v1 valuation; evidence acceptance remains separately controlled. |
-| Quant & Trading | Workspace and import form | StrategyLab supplies validation, simulation, and run artifacts. Simulated fills are not orders. |
-| Portfolio & Risk | Empty state and saved-record views | New calculations require validated datasets. |
-| Research Journal | Local entries, revisions, and exports | Records are private to the local runtime directory. |
+| **Overview** | Navigation and saved local research records | None |
+| **Market Intelligence** | Source and availability states | Go-Terminal for instruments, quotes, and history |
+| **Investment Banking** | Statement import, evidence review, three-statement and versioned DCF previews | DealLens for legacy valuation |
+| **Quant & Trading** | Dataset import controls and engine status | StrategyLab for validation and simulated runs |
+| **Portfolio & Risk** | Empty and saved-record views | Validated datasets for new metrics |
+| **Research Journal** | Local entries, revisions, and exports | None |
+| **Settings** | Storage and provider status | Backend credentials for AI Copilot |
 
-See [features and limitations](docs/FEATURES_AND_LIMITATIONS.md) for what each workspace does and does not claim.
+Read the [feature boundaries](docs/FEATURES_AND_LIMITATIONS.md) before using outputs in research. Simulated fills are not orders; financial inputs and assumptions require independent review.
 
-## Install and run
+## Run FCC locally
 
-The verified environment is Python 3.13, Node.js 24/npm, and Windows PowerShell. Use a new private runtime directory. Follow the [installation guide](docs/INSTALLATION.md) for the exact commands and clean-start checks. The backend listens on `127.0.0.1:8010`; it is not an authenticated public server.
+The verified setup uses **Python 3.13**, **Node.js 24/npm**, and **Windows PowerShell**. From a fresh clone:
 
-## Tests
+```powershell
+git clone https://github.com/Y-Jakhar/deck-finance-command-center.git
+Set-Location deck-finance-command-center
+python -m venv .venv
+& .\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+Push-Location frontend
+npm ci
+npm run build
+Pop-Location
+$env:RESEARCHDESK_DATA = (Join-Path $PWD 'local-runtime')
+$env:RESEARCHDESK_PROJECTS = (Join-Path $PWD 'absent-optional-engines')
+& .\.venv\Scripts\python.exe -m uvicorn researchdesk:app --host 127.0.0.1 --port 8010
+```
 
-From a fresh environment, install `requirements-lock.txt`, run `python -m pip check`, `python -m pytest -q tests`, and `python -m ruff check` on the listed application/test modules. In `frontend`, run `npm ci`, `npm test`, `npm run lint`, `npm run build`, and `npm audit --audit-level=low`. The [light-theme verification](docs/LIGHT_THEME_RELEASE.md) records current checks and remaining limits; the [original publication clearance](docs/FINAL_GITHUB_RELEASE_APPROVAL.md) remains a historical record.
+Open **http://127.0.0.1:8010/**. FCC creates a new local SQLite database in `local-runtime`. Keep that directory private. The server listens on loopback and is not designed as an authenticated public service. For optional engines and credentials, use the [installation](docs/INSTALLATION.md) and [configuration](docs/RELEASE_CONFIGURATION.md) guides.
 
-## License and attribution
+## Verify the source
 
-Copyright (c) 2026 Yash Jakhar. Deck source owned by Yash Jakhar is licensed under [MIT](LICENSE). Third-party dependencies, fonts, and any separately licensed material retain their own terms; see [third-party notices](THIRD_PARTY_NOTICES.md). The owner authorized MIT distribution of the Go-Terminal and DealLens code they own that is included here. No optional sibling repository is bundled.
+Run `python -m pytest -q tests`, `python -m ruff check .`, and `python -m pip check` in the Python environment. In `frontend`, run `npm test`, `npm run lint`, `npm run build`, and `npm audit --audit-level=low`. The [light-theme release verification](docs/LIGHT_THEME_RELEASE.md) records the completed checks and workflows that could not be exercised without optional providers.
 
-No investment result, market feed, backtest, or AI response is guaranteed. Do not put credentials, real portfolio records, licensed datasets, or protected research in a public repository.
+## Source, privacy, and license
+
+This public repository contains source and empty-session screenshots. It does not bundle production databases, private research, licensed market datasets, optional sibling engines, installed dependencies, or built frontend assets. The Overview displays saved application state; its empty screenshot contains no fabricated financial figures.
+
+FCC was previously named Deck; the repository URL and history are preserved. Copyright © 2026 Yash Jakhar. Owner-controlled source is licensed under [MIT](LICENSE); dependencies and fonts retain their own terms in [third-party notices](THIRD_PARTY_NOTICES.md). No investment result, market feed, backtest, or AI response is guaranteed.
