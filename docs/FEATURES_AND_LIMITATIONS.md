@@ -1,6 +1,6 @@
 # Features and limitations
 
-Deck is a local research tool. These boundaries describe the standalone source candidate without optional engines or external credentials.
+FCC (formerly Deck) is a local research tool. The light-themed interface connects seven workspaces to the same local APIs and data. These boundaries describe the standalone source candidate without optional engines or external credentials.
 
 | Area | Available behavior | Limit |
 | --- | --- | --- |

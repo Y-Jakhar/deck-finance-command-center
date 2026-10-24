@@ -29,7 +29,7 @@ export function AppFrame({ children, onNavigate }: { children: ReactNode; onNavi
   return <div className={`app-shell deck-light${collapsed ? ' deck-light--collapsed' : ''}${menuOpen ? ' deck-light--menu-open' : ''}`}>
     <a className="skip-link" href="#main-content">Skip to content</a>
     <aside className="deck-sidebar" aria-label="Primary navigation">
-      <a className="deck-brand" href="/" onClick={event => follow(event, '/', onNavigate)} aria-label="Deck overview"><span className="deck-brand__mark">D</span><span className="deck-brand__name">Deck<small>Research workspace</small></span></a>
+      <a className="deck-brand" href="/" onClick={event => follow(event, '/', onNavigate)} aria-label="FCC overview"><span className="deck-brand__mark">F</span><span className="deck-brand__name">FCC<small>Finance Command Center</small></span></a>
       <div className="deck-sidebar__label">Workspace</div>
       <nav className="deck-nav" aria-label="Primary navigation">{destinations.map(item => <a key={item.path} href={item.path} title={item.title} aria-current={active === item.path ? 'page' : undefined} onClick={event => { follow(event, item.path, onNavigate); setMenuOpen(false) }}><span className="deck-nav__icon" aria-hidden="true">{item.icon}</span><span className="deck-nav__text">{item.title}</span></a>)}</nav>
       <div className="deck-sidebar__foot"><strong>Local research node</strong><span>Source-linked workspace</span></div>

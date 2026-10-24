@@ -1,7 +1,7 @@
 annotated-doc==0.0.5
 annotated-types==0.8.0
 anyio==4.15.1
-certifi==2026.7.22
+certifi==2026.10.23
 charset-normalizer==3.5.2
 click==8.5.0
 colorama==0.4.6
@@ -16,7 +16,7 @@ numpy==2.5.4
 openpyxl==3.1.5
 packaging==26.3
 pandas==2.3.3
-pillow==12.3.0
+pillow==13.0.0
 pluggy==1.6.0
 pydantic==2.11.7
 pydantic_core==2.33.2
@@ -25,7 +25,7 @@ pytest==9.1.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.4
 python-multipart==0.0.32
-pypdf==6.21.0
+pypdf==6.21.2
 pytz==2026.5
 reportlab==4.4.3
 ruff==0.17.0

@@ -32,7 +32,7 @@ describe('Command Center',()=>{
       expect(window.location.pathname).toBe(path)
       expect(await screen.findByRole('heading',{name:heading})).toBeInTheDocument()
       await user.selectOptions(screen.getByLabelText('Workspace switcher'),'')
-      expect(screen.getByRole('heading',{name:'Deck'})).toBeInTheDocument()
+      expect(screen.getByRole('heading',{name:'FCC'})).toBeInTheDocument()
     }
     await user.click(screen.getByRole('button',{name:'Open journal'}))
     expect(screen.getByRole('heading',{name:'Research journal'})).toBeInTheDocument()

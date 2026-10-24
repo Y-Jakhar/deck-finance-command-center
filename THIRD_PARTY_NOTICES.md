@@ -1,6 +1,6 @@
 # Third-party notices
 
-This source-only release candidate contains Deck application source, dependency manifests, documentation, and empty-data screenshots. It does not include installed Python/npm packages, built frontend assets, optional sibling repositories, market datasets, or private research. Deck code owned by Yash Jakhar is covered by the root MIT `LICENSE`; that grant does not replace the terms of independently owned dependencies and assets.
+This source-only release contains FCC (formerly Deck) application source, dependency manifests, documentation, and empty-data screenshots. It does not include installed Python/npm packages, built frontend assets, optional sibling repositories, market datasets, or private research. Code owned by Yash Jakhar is covered by the root MIT `LICENSE`; that grant does not replace the terms of independently owned dependencies and assets.
 
 ## Owner-controlled shared source
 
@@ -8,7 +8,7 @@ The owner has confirmed that the Go-Terminal and DealLens code they own, includi
 
 ## Open Design prototype
 
-The local Open Design prototype input provenance could not be established. Its derived `open-design.css`, corresponding UI edits, prototype PDF, and prototype-based screenshots are excluded. The candidate uses the saved pre-prototype Deck interface, and its two screenshots were recaptured from that interface. No Open Design artifact is intentionally redistributed.
+The original 19 October publication excluded an earlier Open Design prototype because its input provenance could not be established; see the historical clearance report. The 24 October FCC interface was implemented from the owner-approved seven-screen OpenDesign reference. No prototype HTML, JavaScript, PDF, image, or derived `open-design.css` is in this repository. The source release contains independently implemented React/CSS and fresh empty-session screenshots. No external image, template, or hosted asset was added for the redesign.
 
 ## Fonts used by the frontend build
 

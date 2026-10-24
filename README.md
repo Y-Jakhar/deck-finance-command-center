@@ -1,10 +1,12 @@
-# Deck — Finance Command Center
+# FCC — Finance Command Center
 
-Deck is a local finance research workbench for financial modeling, market inspection, strategy experiments, portfolio review, and an evidence-linked journal. This is the public [deck-finance-command-center](https://github.com/Y-Jakhar/deck-finance-command-center) repository, published from the approved source-only candidate on 19 October 2026.
+FCC (formerly Deck) is a local finance research workbench for financial modeling, market inspection, strategy experiments, portfolio review, and an evidence-linked journal. The repository URL and original project history remain [deck-finance-command-center](https://github.com/Y-Jakhar/deck-finance-command-center).
 
-![Home screen from an empty standalone session](docs/release-screenshots/standalone-home.png)
+![FCC light-themed Overview in an empty standalone session](docs/release-screenshots/standalone-home.png)
 
-The [empty Investment Banking screen](docs/release-screenshots/standalone-banking.png) shows the import and review workflow.
+![FCC light-themed Investment Banking import and review workflow](docs/release-screenshots/standalone-banking.png)
+
+The light interface has seven workspaces: Overview, Market Intelligence, Investment Banking, Quant & Trading, Portfolio & Risk, Research Journal, and Settings. The Overview lists saved local records from the application API; it does not display illustrative financial figures as live data. Navigation and layout adapt to desktop and tablet widths, and motion respects reduced-motion preferences.
 
 The React/TypeScript frontend is served by a loopback FastAPI backend. It starts with a new empty SQLite database without sibling repositories. Go-Terminal, DealLens, and StrategyLab are optional local integrations; their provider-backed features show an unavailable state when the corresponding engine is absent. No sibling source, downloaded market data, private research, or production database is packaged.
 
@@ -27,7 +29,7 @@ The verified environment is Python 3.13, Node.js 24/npm, and Windows PowerShell.
 
 ## Tests
 
-From a fresh environment, install `requirements-lock.txt`, run `python -m pip check`, `python -m pytest -q tests`, and `python -m ruff check` on the listed application/test modules. In `frontend`, run `npm ci`, `npm test`, `npm run lint`, `npm run build`, and `npm audit --audit-level=low`. The [publication clearance report](docs/FINAL_GITHUB_RELEASE_APPROVAL.md) records the release checks and remaining limits.
+From a fresh environment, install `requirements-lock.txt`, run `python -m pip check`, `python -m pytest -q tests`, and `python -m ruff check` on the listed application/test modules. In `frontend`, run `npm ci`, `npm test`, `npm run lint`, `npm run build`, and `npm audit --audit-level=low`. The [light-theme verification](docs/LIGHT_THEME_RELEASE.md) records current checks and remaining limits; the [original publication clearance](docs/FINAL_GITHUB_RELEASE_APPROVAL.md) remains a historical record.
 
 ## License and attribution
 

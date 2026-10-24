@@ -23,7 +23,7 @@ export function CommandCenter({ onNavigate }: { onNavigate: (path: string) => vo
   }, [])
   const navigate = (event: React.MouseEvent<HTMLAnchorElement>, path: string) => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return; event.preventDefault(); onNavigate(path) }
   return <main id="main-content" className="deck-overview">
-    <header className="deck-page-heading"><div><p className="deck-kicker">Command center</p><h1>Deck</h1><p>Your financial research workspace.</p></div><button className="deck-action deck-action--primary" onClick={() => onNavigate('/banking')}>New valuation</button></header>
+    <header className="deck-page-heading"><div><p className="deck-kicker">Command center</p><h1>FCC</h1><p>Your financial research workspace.</p></div><button className="deck-action deck-action--primary" onClick={() => onNavigate('/banking')}>New valuation</button></header>
     <section className="deck-welcome"><div><h2>Start with a question. Keep the evidence.</h2><p>Move from market context to models, experiments, and a retained research record.</p></div><div className="deck-welcome__actions"><button onClick={() => onNavigate('/banking')}>Import financials</button><button onClick={() => onNavigate('/quant')}>New strategy</button><button onClick={() => onNavigate('/journal')}>Open journal</button></div></section>
     <section className="deck-section" aria-labelledby="research-overview"><div className="deck-section__head"><h2 id="research-overview">Research overview</h2><span>Saved local records</span></div>
       {data.status === 'error' && <div className="deck-notice" role="alert">Could not load research records: {data.message}. Check the local API and refresh.</div>}
