@@ -4,7 +4,7 @@ import '../pages/command-center.css'
 import { UniversalSearch } from './UniversalSearch'
 import { WorkspaceRail } from './WorkspaceRail'
 
-type IconName = 'today' | 'universe' | 'watchlist' | 'news' | 'events'
+type IconName = 'today' | 'universe' | 'watchlist' | 'news' | 'events' | 'banking' | 'quant'
 
 function NavIcon({ name }: { name: IconName }) {
   const paths: Record<IconName, ReactNode> = {
@@ -13,6 +13,8 @@ function NavIcon({ name }: { name: IconName }) {
     watchlist: <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" />,
     news: <><rect x="5" y="4" width="14" height="16" /><path d="M8 8h8M8 12h8M8 16h5" /></>,
     events: <><rect x="5" y="5" width="14" height="15" /><path d="M8 3v4m8-4v4M8 11h3m2 0h3m-8 4h3m2 0h3" /></>,
+    banking: <><rect x="4" y="8" width="16" height="12" /><path d="m3 8 9-5 9 5M8 11v6m4-6v6m4-6v6M3 20h18" /></>,
+    quant: <><path d="M4 19h16M4 19V5" /><path d="m7 15 4-5 3 2 4-6" /><circle cx="7" cy="15" r="1" /><circle cx="18" cy="6" r="1" /></>,
   }
   return <svg className="nav-icon" viewBox="0 0 24 24" aria-hidden="true">{paths[name]}</svg>
 }
@@ -28,26 +30,26 @@ export function AppFrame({ children, onNavigate }: { children: ReactNode; onNavi
   const workspace = workspaceFor(path)
   const links = [['/', 'Home'], ...workspaces.map(w => [w.path,w.name]), ['/journal','Research journal'], ['/settings','Settings']]
   return (
-    <div className="app-shell">
-      <a className="skip-link" href="#main-content">Skip to terminal content</a>
+    <div className={path === '/' ? 'app-shell app-shell--command' : 'app-shell'}>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <a className="wordmark" href="/" onClick={(event) => navigate(event, '/', onNavigate)} aria-label="Finance Command Center home">
         <span className="wordmark__mark" aria-hidden="true">R<span>D</span></span>
         <span>ResearchDesk</span>
       </a>
       <header className="topbar">
         <UniversalSearch onNavigate={onNavigate} />
-        <div className="provider-status" aria-label="Terminal mode">
+        <div className="provider-status" aria-label="Research mode">
           <span>Local research node</span><strong>Source-linked · No trade execution</strong><i className="market-dot" aria-hidden="true" />
         </div>
       </header>
       <nav className="primary-rail" aria-label="Primary navigation">
-        {links.map(([url,title]) => <a key={url} aria-label={title} title={title} aria-current={path === url || workspace?.path === url ? 'page' : undefined} className={path === url || workspace?.path === url ? 'active' : ''} href={url} onClick={event=>navigate(event,url,onNavigate)}><NavIcon name={url==='/'?'today':url==='/journal'?'news':url==='/settings'?'events':url==='/portfolio'?'watchlist':'universe'}/><span>{title}</span></a>)}
+        {links.map(([url,title]) => <a key={url} aria-label={title} title={title} aria-current={path === url || workspace?.path === url ? 'page' : undefined} className={path === url || workspace?.path === url ? 'active' : ''} href={url} onClick={event=>navigate(event,url,onNavigate)}><NavIcon name={url==='/'?'today':url==='/journal'?'news':url==='/settings'?'events':url==='/portfolio'?'watchlist':url==='/banking'?'banking':url==='/quant'?'quant':'universe'}/><span>{title}</span></a>)}
         <div className="primary-rail__status"><span className="market-dot" aria-hidden="true" /><strong>Local API</strong><small>Research mode</small></div>
       </nav>
       <WorkspaceRail onNavigate={onNavigate} />
-      <div className="page-stage"><nav className="command-breadcrumb" aria-label="Breadcrumb"><a href="/" onClick={e=>navigate(e,'/',onNavigate)}>Home</a><span aria-hidden="true">/</span><span>{workspace?.name || (path.includes('journal') ? 'Research journal' : path.includes('settings') ? 'Shared settings' : 'Command Center')}</span><select aria-label="Workspace switcher" value={workspace?.path || ''} onChange={e=>onNavigate(e.target.value || '/')}><option value="">Command Center</option>{workspaces.map(w=><option key={w.key} value={w.path}>{w.name}</option>)}</select></nav>{workspace?.key==='market'&&<nav className="workspace-tools" aria-label="Market workspace"><a href="/today" onClick={e=>navigate(e,'/today',onNavigate)}>Today</a><a href="/market" onClick={e=>navigate(e,'/market',onNavigate)}>Universe & watchlists</a><a href="/market/history" onClick={e=>navigate(e,'/market/history',onNavigate)}>Historical snapshots</a><a href="/market/company" onClick={e=>navigate(e,'/market/company',onNavigate)}>Company research</a></nav>}{children}</div>
+      <div className="page-stage"><nav className="command-breadcrumb" aria-label="Breadcrumb"><a href="/" onClick={e=>navigate(e,'/',onNavigate)}>Home</a><span aria-hidden="true">/</span><span>{workspace?.name || (path.includes('journal') ? 'Research journal' : path.includes('settings') ? 'Shared settings' : 'Command Center')}</span><select aria-label="Workspace switcher" value={workspace?.path || (path === '/journal' || path === '/settings' ? path : '')} onChange={e=>onNavigate(e.target.value || '/')}><option value="">Command Center</option>{workspaces.map(w=><option key={w.key} value={w.path}>{w.name}</option>)}<option value="/journal">Research journal</option><option value="/settings">Settings</option></select></nav>{workspace?.key==='market'&&<nav className="workspace-tools" aria-label="Market workspace"><a href="/today" onClick={e=>navigate(e,'/today',onNavigate)}>Today</a><a href="/market" onClick={e=>navigate(e,'/market',onNavigate)}>Universe & watchlists</a><a href="/market/history" onClick={e=>navigate(e,'/market/history',onNavigate)}>Historical snapshots</a><a href="/market/company" onClick={e=>navigate(e,'/market/company',onNavigate)}>Company research</a></nav>}{children}</div>
       <nav className="mobile-nav" aria-label="Mobile navigation">
-        {[['/','Home'],['/market','Markets'],['/banking','Banking'],['/quant','Quant'],['/portfolio','Risk']].map(([url,title])=><a key={url} className={path===url||workspace?.path===url?'active':''} href={url} onClick={e=>navigate(e,url,onNavigate)}><NavIcon name="universe"/><span>{title}</span></a>)}
+        {[['/','Home'],['/market','Markets'],['/banking','Banking'],['/quant','Quant'],['/portfolio','Risk']].map(([url,title])=><a key={url} aria-current={path===url||workspace?.path===url?'page':undefined} className={path===url||workspace?.path===url?'active':''} href={url} onClick={e=>navigate(e,url,onNavigate)}><NavIcon name={url==='/'?'today':url==='/portfolio'?'watchlist':url==='/banking'?'banking':url==='/quant'?'quant':'universe'}/><span>{title}</span></a>)}
       </nav>
     </div>
   )

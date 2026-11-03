@@ -60,8 +60,8 @@ export function CandlestickChart({ candles, symbol, currency, interval, mode = '
         </desc>
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#36c2b4" stopOpacity="0.16" />
-            <stop offset="1" stopColor="#36c2b4" stopOpacity="0" />
+            <stop offset="0" stopColor="var(--accent)" stopOpacity="0.12" />
+            <stop offset="1" stopColor="var(--accent)" stopOpacity="0" />
           </linearGradient>
         </defs>
         {gridValues.map((price) => (

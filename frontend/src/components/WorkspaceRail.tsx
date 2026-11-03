@@ -30,7 +30,8 @@ export function WorkspaceRail({ onNavigate }: { onNavigate: (path: string) => vo
       <div className="workspace-rail__columns" aria-hidden="true"><span>Instrument</span><span>Last</span><span>Change</span></div>
       <div className="workspace-rail__items">
         {!dashboard && !error && <p className="workspace-rail__state" role="status">Loading local universe…</p>}
-        {error && <p className="workspace-rail__state workspace-rail__state--error" role="status">Universe unavailable</p>}
+        {error && <div className="workspace-rail__state workspace-rail__state--error" role="status"><strong>Universe unavailable</strong><span>Market instruments could not be loaded. Research workspaces remain available.</span></div>}
+        {dashboard && dashboard.items.length === 0 && <div className="workspace-rail__state" role="status"><strong>No registered instruments</strong><span>Open Market Intelligence to build a watchlist.</span></div>}
         {dashboard?.items.map((item) => {
           const quote = item.snapshot?.quote
           const activeInstrument = window.location.pathname.includes(item.instrument.id)
@@ -51,7 +52,7 @@ export function WorkspaceRail({ onNavigate }: { onNavigate: (path: string) => vo
           )
         })}
       </div>
-      <div className="workspace-rail__foot"><span className="market-dot" aria-hidden="true" /> {error ? 'Local API unavailable' : dashboard ? 'Registered universe loaded' : 'Checking local universe'}</div>
+      <div className="workspace-rail__foot">{error ? 'Market universe unavailable' : dashboard ? 'Registered universe loaded' : 'Checking local universe'}</div>
     </aside>
   )
 }

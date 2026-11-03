@@ -10,6 +10,19 @@ beforeEach(()=>{window.history.replaceState({},'','/');localStorage.clear();vi.s
 afterEach(()=>vi.unstubAllGlobals())
 
 describe('Command Center',()=>{
+  it('prioritizes market research while keeping direct routes and a journal action',async()=>{
+    const user=userEvent.setup();render(<App />)
+    expect(screen.getByRole('heading',{level:1,name:'Finance Command Center'})).toBeInTheDocument()
+    expect(screen.getByRole('link',{name:'OBSERVE Market Intelligence'})).toBeInTheDocument()
+    expect(screen.getByRole('navigation',{name:'Market research shortcuts'})).toBeInTheDocument()
+    expect(screen.getByRole('navigation',{name:'Research trail'})).toBeInTheDocument()
+    await user.click(screen.getByRole('link',{name:/Historical snapshots/}))
+    expect(window.location.pathname).toBe('/market/history')
+    await user.selectOptions(screen.getByLabelText('Workspace switcher'),'')
+    await user.click(screen.getByRole('button',{name:/Open research journal/}))
+    expect(window.location.pathname).toBe('/journal')
+    expect(screen.getByLabelText('Workspace switcher')).toHaveValue('/journal')
+  })
   it('keeps Markets mounted when the optional market API returns 503',async()=>{
     window.history.replaceState({},'','/market')
     vi.stubGlobal('fetch',vi.fn(async(url:string)=>({ok:!url.includes('/api/v1/search'),json:async()=>url.includes('/api/v1/search')?{detail:'Market integration unavailable'}:[]})))

@@ -37,8 +37,8 @@ export function DashboardPage({ onNavigate }: { onNavigate: (path: string) => vo
   if (state.error) return (
     <main id="main-content" className="state-page" role="alert">
       <div className="state-mark state-mark--error" aria-hidden="true">×</div>
-      <p className="eyebrow">Market data unavailable</p><h1>{state.error?.includes('Market integration unavailable') ? 'Market integration unavailable' : 'The local research API could not be reached'}</h1><p>{state.error}</p>
-      <p className="state-direction">If ResearchDesk is running, configure the optional market integration to load provider-backed views.</p>
+      <p className="eyebrow">Market status</p><h1>{state.error?.includes('Market integration unavailable') ? 'Market integration unavailable' : 'Market data unavailable'}</h1><p>{state.error}</p>
+      <p className="state-direction">Other research workspaces remain available. Provider-backed views resume when the market service is available.</p>
     </main>
   )
   if (!state.dashboard || !state.news || !state.events) return (

@@ -2,8 +2,13 @@ export async function deskApi(path: string, body?: unknown, method = 'POST') {
   const response = await fetch('/api/desk' + path, body === undefined ? undefined : {
     method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
   })
-  const data = await response.json()
-  if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail))
+  let data: any
+  try {
+    data = await response.json()
+  } catch {
+    throw new Error(response.ok ? 'Research service returned an invalid response.' : `Research service unavailable (HTTP ${response.status || 'error'}).`)
+  }
+  if (!response.ok) throw new Error(typeof data?.detail === 'string' ? data.detail : `Research service unavailable (HTTP ${response.status || 'error'}).`)
   return data
 }
 
